@@ -2,187 +2,1168 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sandesh Lekhwani</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sandesh Lekhwani | Product Journey</title>
+  <meta name="description" content="Sandesh Lekhwani, product manager with a technical foundation, user behavior lens, and business acumen." />
   <style>
-    * {
-      box-sizing: border-box;
+    :root {
+      --bg: #050816;
+      --bg-2: #0b1026;
+      --card: rgba(10, 16, 34, 0.72);
+      --card-2: rgba(14, 21, 44, 0.88);
+      --line: rgba(255, 255, 255, 0.08);
+      --text: #eef2ff;
+      --muted: #b7c0de;
+      --cyan: #40d9ff;
+      --blue: #6b7cff;
+      --gold: #ffcf5f;
+      --green: #4cffb5;
+      --pink: #ff5ea8;
+      --orange: #ff8f49;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
     }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #0f0f0f;
-      color: #f0f0f0;
+      color: var(--text);
+      font-family: Inter, Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(64, 217, 255, 0.16), transparent 24%),
+        radial-gradient(circle at 85% 20%, rgba(255, 95, 168, 0.12), transparent 22%),
+        radial-gradient(circle at 50% 80%, rgba(76, 255, 181, 0.08), transparent 28%),
+        linear-gradient(135deg, var(--bg), var(--bg-2));
       overflow-x: hidden;
     }
-    canvas {
+
+    canvas#bg {
       position: fixed;
-      top: 0;
-      left: 0;
+      inset: 0;
+      z-index: -3;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
       z-index: -2;
+      opacity: 0.14;
+      background-image: radial-gradient(rgba(255,255,255,0.9) 0.6px, transparent 0.6px);
+      background-size: 4px 4px;
+      mix-blend-mode: soft-light;
     }
-    .glass {
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 15px;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      padding: 2rem;
-      margin: 2rem auto;
-      max-width: 800px;
-      text-align: center;
-      z-index: 1;
+
+    .shell {
+      width: min(1280px, calc(100% - 32px));
+      margin: 0 auto;
       position: relative;
+      padding: 20px 0 60px;
     }
-    h1, h2 {
-      margin-bottom: 0.5rem;
+
+    .panel {
+      background: linear-gradient(180deg, rgba(17, 25, 52, 0.82), rgba(9, 14, 32, 0.82));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: 28px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
-    p {
-      font-size: 1.1em;
-      line-height: 1.6;
-      color: #e0e0e0;
-    }
-    .links a {
-      margin: 0 12px;
-      text-decoration: none;
-      color: #00ccff;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
-    .links a:hover {
-      color: #ffffff;
-    }
-    .avatar-circle {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
+
+    .hero {
+      position: relative;
       overflow: hidden;
-      margin: 0 auto 1rem;
-      background: #0f0f0f;
-      box-shadow:
-        inset 10px 10px 15px #0a0a0a,
-        inset -10px -10px 15px #151515,
-        0 8px 16px rgba(0, 0, 0, 0.5),
-        0 -4px 10px rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 34px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: center;
+      margin-top: 18px;
+    }
+
+    .hero:before,
+    .hero:after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(24px);
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .hero:before {
+      width: 280px;
+      height: 280px;
+      right: -80px;
+      top: -40px;
+      background: rgba(64, 217, 255, 0.22);
+    }
+
+    .hero:after {
+      width: 260px;
+      height: 260px;
+      left: -90px;
+      bottom: -110px;
+      background: rgba(255, 95, 168, 0.18);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 0.88rem;
+      letter-spacing: 0.02em;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--pink));
+      box-shadow: 0 0 16px rgba(64, 217, 255, 0.9);
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    .hero h1 {
+      margin-top: 18px;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 0.94;
+      letter-spacing: -0.04em;
+      background: linear-gradient(90deg, #ffffff, var(--cyan) 38%, var(--gold) 70%, #ffffff 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      margin-top: 14px;
+      font-size: 1.08rem;
+      color: var(--gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .lede {
+      margin-top: 18px;
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 1.07rem;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
       display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn,
+    .chip-link {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 10px;
+      border-radius: 999px;
+      padding: 11px 16px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
     }
-    .avatar-circle img {
+
+    .btn:hover,
+    .chip-link:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      color: #03111a;
+      box-shadow: 0 16px 40px rgba(64, 217, 255, 0.22);
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+    }
+
+    .hero-meta {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 26px;
+    }
+
+    .metric {
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .metric .value {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .metric .label {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .top-face {
+      display: flex;
+      justify-content: center;
+      margin: 22px 0 0;
+    }
+
+    .face-frame {
+      position: relative;
+    }
+
+    .avatar {
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      padding: 8px;
+      background: conic-gradient(from 210deg, var(--cyan), var(--pink), var(--gold), var(--green), var(--cyan));
+      box-shadow: 0 0 0 10px rgba(255,255,255,0.03), 0 24px 60px rgba(0, 0, 0, 0.35);
+      position: relative;
+    }
+
+    .avatar-helmet {
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-radius: 50%;
+      display: block;
+      background: #090d16;
+      border: 6px solid rgba(6, 10, 20, 0.95);
     }
-    footer {
-      font-size: 0.9em;
-      color: #999;
-      padding: 1rem;
-      text-align: center;
+
+    .section {
+      margin-top: 18px;
+      padding: 24px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.5rem, 2vw, 2rem);
+      letter-spacing: -0.03em;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 70ch;
+      line-height: 1.6;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 0.96fr 1.04fr;
+      gap: 18px;
+    }
+
+    .story-card {
+      padding: 22px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .story-card .kicker {
+      color: var(--cyan);
+      font-size: 0.86rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .story-card p {
+      color: #dce3fb;
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .principle {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .principle:before {
+      content: "";
+      position: absolute;
+      inset: auto -20px -40px auto;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: rgba(64, 217, 255, 0.12);
+      filter: blur(12px);
+    }
+
+    .principle h3 {
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .principle p {
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 0.95rem;
+    }
+
+    .trail {
+      position: relative;
+      margin-top: 10px;
+      padding-left: 58px;
+    }
+
+    .trail-line {
+      position: absolute;
+      left: 21px;
+      top: 6px;
+      bottom: 6px;
+      width: 4px;
+      background: linear-gradient(180deg, rgba(64,217,255,0.95), rgba(255,95,168,0.88), rgba(255,207,95,0.85), rgba(76,255,181,0.92));
+      border-radius: 999px;
+      box-shadow: 0 0 24px rgba(64, 217, 255, 0.25);
+    }
+
+    .trail-step {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .trail-step:last-child { margin-bottom: 0; }
+
+    .trail-step .node {
+      position: absolute;
+      left: -58px;
+      top: 18px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #0c1227;
+      border: 3px solid rgba(255,255,255,0.15);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 0 6px rgba(255,255,255,0.03), 0 0 18px rgba(0,0,0,0.4);
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .trail-step .node img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .trail-card {
+      padding: 20px;
+      border-radius: 24px;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 18px 44px rgba(0,0,0,0.18);
+    }
+
+    .trail-card .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .trail-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.18rem;
+    }
+
+    .trail-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #d7def6;
+      line-height: 1.7;
+    }
+
+    .trail-card ul li { margin-bottom: 6px; }
+
+    .skill-rack {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .skill-card {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .skill-card h3 { margin-bottom: 12px; }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-tag {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(64,217,255,0.08);
+      border: 1px solid rgba(64,217,255,0.15);
+      color: #dff8ff;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .project-grid, .interest-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .project-card, .interest-card {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .project-card img, .interest-card img {
+      width: 100%;
+      height: 182px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: #0a0f1e;
+    }
+
+    .project-card p, .interest-card p { color: var(--muted); line-height: 1.7; }
+
+    .interest-card img {
+      object-fit: contain;
+      padding: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.05));
+    }
+
+    .footer {
+      margin-top: 18px;
+      padding: 18px 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      color: var(--muted);
+    }
+
+    .footer a { color: var(--cyan); }
+
+    /* Career rail: a scroll-driven walker that moves through the entire page */
+    .career-rail {
+      position: fixed;
+      left: 22px;
+      top: 90px;
+      bottom: 90px;
+      width: 34px;
+      z-index: 40;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .rail-track {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 4px;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .rail-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 0%;
+      background: linear-gradient(180deg, var(--cyan), var(--pink), var(--gold), var(--green));
+      border-radius: 999px;
+      box-shadow: 0 0 16px rgba(64, 217, 255, 0.4);
+      transition: height 0.05s linear;
+    }
+
+    .rail-marker {
+      position: absolute;
+      left: 50%;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background: #0c1227;
+      border: 2px solid rgba(255,255,255,0.25);
+      transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .rail-marker.passed {
+      background: var(--marker-tone, var(--cyan));
+      border-color: var(--marker-tone, var(--cyan));
+      box-shadow: 0 0 14px var(--marker-tone, var(--cyan));
+    }
+
+    .rail-walker {
+      position: absolute;
+      left: 50%;
+      top: 0%;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--cyan);
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 14px currentColor, 0 4px 10px rgba(0,0,0,0.5);
+      transition: top 0.05s linear, background 0.25s ease;
+      animation: walk-pulse 0.9s ease-in-out infinite;
+    }
+
+    @keyframes walk-pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.25); }
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.06);
+      z-index: 41;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--cyan), var(--pink), var(--gold));
+      transition: width 0.05s linear;
+    }
+
+    .progress-walker {
+      position: absolute;
+      top: 4px;
+      left: 0%;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--cyan);
+      transform: translate(-50%, -50%);
+      transition: left 0.05s linear, background 0.25s ease;
+      box-shadow: 0 0 10px currentColor;
+    }
+
+    .hud-float {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      z-index: 42;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(10, 15, 32, 0.82);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      max-width: calc(100% - 24px);
+      box-sizing: border-box;
+    }
+
+    .hud-float.pulse {
+      transform: translateX(-50%) scale(1.06);
+      box-shadow: 0 0 0 3px var(--marker-tone, var(--cyan)), 0 12px 30px rgba(0,0,0,0.4);
+    }
+
+    .hud-level {
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 0.92rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .hud-context {
+      color: var(--muted);
+      font-size: 0.82rem;
+      white-space: nowrap;
+      max-width: min(240px, 40vw);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+
+    .hud-pct {
+      color: var(--cyan);
+      font-weight: 800;
+      font-size: 0.82rem;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 900px) {
+      .career-rail { display: none; }
+      .hud-float { max-width: calc(100% - 24px); }
+      .hud-context { display: none; }
+    }
+
+    @media (max-width: 1100px) {
+      .hero, .story-grid, .principles, .skill-rack, .project-grid, .interest-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .portrait-wrap { min-height: auto; }
+    }
+
+    @media (max-width: 700px) {
+      .shell { width: min(100% - 18px, 1280px); padding-bottom: 34px; }
+      .hero, .section { padding: 18px; }
+      .hero h1 { font-size: 2.5rem; }
+      .hero-meta { grid-template-columns: 1fr; }
+      .project-grid, .interest-grid { grid-template-columns: 1fr; }
+      .footer { padding: 14px 0 0; }
+      .trail { padding-left: 48px; }
+      .trail-step .node { left: -48px; width: 40px; height: 40px; }
     }
   </style>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RZJQELWJ9"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4RZJQELWJ9');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RZJQELWJ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4RZJQELWJ9');
+  </script>
 </head>
-
 <body>
   <canvas id="bg"></canvas>
+  <div class="grain"></div>
 
-  <div class="glass">
-    <div class="avatar-circle">
-      <img src="https://cdnb.artstation.com/p/assets/images/images/038/792/913/original/talha-ironmangif.gif?1624063741" alt="Ironman Avatar" />
-    </div>
-    <h1>Sandesh Lekhwani</h1>
-    <p>Exploring the evolving landscape of AI with curiosity and care. This space is a small reflection of the experiments, ideas, and learning I've gathered along the journey.</p>
-    <div class="links">
-      <a href="https://github.com/sandeshlekhwani" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/sandeshlekhwani" target="_blank">LinkedIn</a>
-      <a href="mailto:sandeshlekhwani@gmail.com">Email</a>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+    <span class="progress-walker" id="progressWalker"></span>
+  </div>
+
+  <div class="career-rail" aria-hidden="true">
+    <div class="rail-track"><div class="rail-fill" id="railFill"></div></div>
+    <div class="rail-walker" id="railWalker"></div>
+  </div>
+
+  <div class="hud-float" id="hudFloat">
+    <span class="hud-level" id="hudLevel">Prologue</span>
+    <span class="hud-context" id="hudContext">Scroll to start the walk</span>
+    <span class="hud-pct" id="hudPct">0%</span>
+  </div>
+
+  <div class="top-face">
+    <div class="face-frame">
+      <div class="avatar">
+        <img class="avatar-helmet" src="ironman-sandesh.gif" alt="Sandesh Lekhwani as Iron Man" onerror="this.onerror=null; this.src='https://cdnb.artstation.com/p/assets/images/images/038/792/913/original/talha-ironmangif.gif?1624063741';" />
+      </div>
     </div>
   </div>
 
-  <div class="glass">
-    <h2>About Me</h2>
-    <p>I’m a builder at heart—currently deep into AI, conversational interfaces, and immersive frontends. I believe in crafting tools that enable others, with simplicity and elegance in mind. This site is a digital sketchpad more than a portfolio.</p>
-  </div>
+  <main class="shell">
+    <section class="panel hero" data-stage="Prologue" data-tone="#40d9ff" data-context="Before the titles: still a builder at heart.">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> Product manager with technical roots, user obsession, and business fluency</div>
+        <h1>Sandesh Lekhwani</h1>
+        <div class="subtitle">Building products that move behaviour and revenue</div>
+        <p class="lede">I started by building systems, then learned to shape user behavior, and now work where product intuition, business decisions, and execution meet. The whole page is the story: a professional walking through levels, collecting insight, and growing from engineer to product leader.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#journey">Start the journey</a>
+          <a class="btn secondary" href="#strengths">See core strengths</a>
+          <a class="btn secondary" href="https://www.linkedin.com/in/sandesh-lekhwani" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+        <div class="hero-meta">
+          <div class="metric">
+            <div class="value">$10M+ ARR</div>
+            <div class="label">Scaled via product-led thinking, pricing, and smarter execution.</div>
+          </div>
+          <div class="metric">
+            <div class="value">User + Business</div>
+            <div class="label">Build for humans, but always connect the work to economics.</div>
+          </div>
+          <div class="metric">
+            <div class="value">Engineer-first PM</div>
+            <div class="label">Still hands-on with architecture, prototyping, and AI workflows.</div>
+          </div>
+          <div class="metric">
+            <div class="value">Behavioral lens</div>
+            <div class="label">I care about friction, motivation, trust, and decision quality.</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <footer>
-    © 2025 Sandesh Lekhwani
-  </footer>
+    <section class="panel section" id="journey">
+      <div class="section-head">
+        <div>
+          <h2>The Product Journey</h2>
+          <p>Each chapter is a level. The visual language changes as the character grows, from builder to product thinker to leader.</p>
+        </div>
+      </div>
+
+      <div class="story-grid">
+        <div class="story-card">
+          <div class="kicker">How I think</div>
+          <p>I start with the user’s real job, map the friction, and ask what behavior needs to change. Then I look at the system: what’s the engineering cost, what’s the commercial upside, and what should be measured? A good product manager can frame the problem, but a great one can also ship the thing.</p>
+        </div>
+        <div class="principles">
+          <div class="principle">
+            <h3>Technical spine</h3>
+            <p>I can still read architecture, prototype fast, and work comfortably with engineers and data.</p>
+          </div>
+          <div class="principle">
+            <h3>User lens</h3>
+            <p>I care about trust, motivation, ease, and the subtle habits that make people stay or leave.</p>
+          </div>
+          <div class="principle">
+            <h3>Business brain</h3>
+            <p>I connect product choices to revenue, margin, retention, CAC, conversion, and strategic leverage.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="trail">
+        <div class="trail-line"></div>
+
+        <article class="trail-step" data-stage="Engineer" data-tone="#40d9ff" data-context="FinIQ · close to the code, close to how systems behave.">
+          <div class="node"><img src="https://logo.clearbit.com/finiq.com?size=120" alt="FinIQ" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=F&amp;background=0a0f1e&amp;color=40d9ff&amp;size=120';" /></div>
+          <div class="trail-card">
+            <div class="meta"><span class="pill">Level 01</span><span>FinIQ · 2019–2020</span><span>Engineer</span></div>
+            <h3>Built the foundation</h3>
+            <ul>
+              <li>Developed an Ethereum-based PoC for derivatives workflows.</li>
+              <li>Migrated ASP.NET legacy systems to .NET Core, improving performance by 20%.</li>
+              <li>Learned to think in systems, latency, and reliable execution.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="trail-step" data-stage="Product Manager" data-tone="#ffcf5f" data-context="Mindstix · translating user friction into shipped decisions.">
+          <div class="node"><img src="https://logo.clearbit.com/mindstix.com?size=120" alt="Mindstix" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=M&amp;background=0a0f1e&amp;color=ffcf5f&amp;size=120';" /></div>
+          <div class="trail-card">
+            <div class="meta"><span class="pill">Level 02</span><span>Mindstix · 2020–2021</span><span>Product Manager</span></div>
+            <h3>Started shaping behavior</h3>
+            <ul>
+              <li>Shipped 15+ features across 4 releases and lifted engagement 50%.</li>
+              <li>Worked on prioritization, user outcomes, and delivery discipline.</li>
+              <li>Transitioned from building features to deciding what matters and why.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="trail-step" data-stage="Co-founder" data-tone="#4cffb5" data-context="SingleDose → Cipla · owning the market outcome, not just the build.">
+          <div class="node"><img src="https://logo.clearbit.com/cipla.com?size=120" alt="Cipla" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=C&amp;background=0a0f1e&amp;color=4cffb5&amp;size=120';" /></div>
+          <div class="trail-card">
+            <div class="meta"><span class="pill">Level 03</span><span>SingleDose → Cipla · 2021–2022</span><span>Co-founder</span></div>
+            <h3>Owned the market outcome</h3>
+            <ul>
+              <li>Scaled a global HCP network to 10,000+ doctors.</li>
+              <li>Built and launched Ciplamed Flix; recognized with the ET Pharma Award 2022.</li>
+              <li>Learned what it means to build with urgency, market need, and commercial consequences.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="trail-step" data-stage="Senior PM" data-tone="#b967ff" data-context="GoKwik · balancing user behavior and business leverage at scale.">
+          <div class="node"><img src="https://logo.clearbit.com/gokwik.co?size=120" alt="GoKwik" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=G&amp;background=0a0f1e&amp;color=b967ff&amp;size=120';" /></div>
+          <div class="trail-card">
+            <div class="meta"><span class="pill">Level 04</span><span>GoKwik · 2022–2025</span><span>Senior Product Manager</span></div>
+            <h3>Scaled revenue with product judgment</h3>
+            <ul>
+              <li>Grew smartCOD / RTO from $2M to $10M+ ARR and $1B+ GMV.</li>
+              <li>Cut RTO by 40% using ML scoring and behavioral friction signals.</li>
+              <li>Launched kwik.AI and RTO Actions, helping 1,000+ merchants.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="trail-step" data-stage="Product Leader" data-tone="#ff8f49" data-context="JoVE · driving growth while keeping user and business in sync.">
+          <div class="node"><img src="https://logo.clearbit.com/jove.com?size=120" alt="JoVE" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=J&amp;background=0a0f1e&amp;color=ff8f49&amp;size=120';" /></div>
+          <div class="trail-card">
+            <div class="meta"><span class="pill">Level 05</span><span>JoVE · 2025–Present</span><span>Senior Product Manager</span></div>
+            <h3>Leading with product + growth</h3>
+            <ul>
+              <li>Shipped Visualize plus 3 internal platforms in 6 months.</li>
+              <li>Raised indexation ~20%, improved engagement ~60%, reduced CAC 23%.</li>
+              <li>Built tools for board visibility, research CRM, and citation tracking.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel section" id="strengths" data-stage="Core Strengths" data-tone="#40d9ff" data-context="What technical depth, user empathy, and business sense add up to.">
+      <div class="section-head">
+        <div>
+          <h2>Core strengths</h2>
+          <p>The point is not to list skills. The point is to show the kind of product leader you become when technical depth, user instinct, and business thinking all reinforce each other.</p>
+        </div>
+      </div>
+      <div class="skill-rack">
+        <div class="skill-card">
+          <h3>Product craft</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">0→1 / 1→100</span>
+            <span class="skill-tag">Roadmapping</span>
+            <span class="skill-tag">Prioritization</span>
+            <span class="skill-tag">GTM</span>
+            <span class="skill-tag">Pricing</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>User behavior</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">JTBD</span>
+            <span class="skill-tag">Friction mapping</span>
+            <span class="skill-tag">Trust design</span>
+            <span class="skill-tag">Conversion</span>
+            <span class="skill-tag">Retention</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Business acumen</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">P&amp;L</span>
+            <span class="skill-tag">ARR</span>
+            <span class="skill-tag">GMV</span>
+            <span class="skill-tag">CAC</span>
+            <span class="skill-tag">NPS</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Technical depth</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Architecture</span>
+            <span class="skill-tag">AI prototyping</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">APIs</span>
+            <span class="skill-tag">System thinking</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel section" data-stage="Building in Public" data-tone="#ff5ea8" data-context="Side builds that test the same product instincts.">
+      <div class="section-head">
+        <div>
+          <h2>Projects and side quests</h2>
+          <p>Real products, real experiments, and real curiosity, all presented as part of the same story.</p>
+        </div>
+      </div>
+      <div class="project-grid">
+        <article class="project-card">
+          <img src="https://images.unsplash.com/photo-1553484771-5d8d1d0d7d57?auto=format&fit=crop&w=1200&q=80" alt="AI product dashboard" />
+          <h3>GreenTick AI</h3>
+          <p>AI voice-based interview assessment backed by Google for Startups and NVIDIA Inception. Provisional patent, paid pilots, and a product shaped around assessment behavior.</p>
+        </article>
+        <article class="project-card">
+          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80" alt="Product and strategy workshop" />
+          <h3>Widur.in</h3>
+          <p>AI expert consultation platform scaled to 20,000+ users and 10 B2B clients, driven by trust, access, and conversion-oriented product design.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel section" data-stage="Off Duty" data-tone="#4cffb5" data-context="The habits and curiosities that shape how I think.">
+      <div class="section-head">
+        <div>
+          <h2>Interests that shape the lens</h2>
+          <p>These are not filler hobbies, they explain how I think about systems, attention, behavior, and calm decision making.</p>
+        </div>
+      </div>
+      <div class="interest-grid">
+        <article class="interest-card">
+          <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/269b.svg" alt="Quantum" />
+          <h3>Quantum computing</h3>
+          <p>NVIDIA Ising models for QPU calibration and QRNG for resilient crypto.</p>
+        </article>
+        <article class="interest-card">
+          <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f9e0.svg" alt="Psychology" />
+          <h3>Behavioral psychology</h3>
+          <p>Interested in the productivity illusion, attention, and how people make decisions under uncertainty.</p>
+        </article>
+        <article class="interest-card">
+          <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f9d8.svg" alt="Vipassana" />
+          <h3>Vipassana</h3>
+          <p>10-day self-observation practice that strengthened focus and emotional clarity.</p>
+        </article>
+        <article class="interest-card">
+          <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/26f0.svg" alt="Trekking" />
+          <h3>Trekking</h3>
+          <p>Kedarkantha and other climbs, a reminder that hard journeys are easier when broken into milestones.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="panel footer" data-stage="Now" data-tone="#ffcf5f" data-context="Thanks for walking through it. Let's talk.">
+      <div>Sandesh Lekhwani, product manager, builder, and systems thinker.</div>
+      <div>
+        <a href="https://www.linkedin.com/in/sandesh-lekhwani" target="_blank" rel="noreferrer">LinkedIn</a>
+        ·
+        <a href="mailto:sandeshlekhwani@gmail.com">Email</a>
+      </div>
+    </footer>
+  </main>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0f0f0f);
-
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("bg"), antialias: true });
+    scene.background = new THREE.Color(0x050816);
+    const camera = new THREE.PerspectiveCamera(72, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
 
     const textureLoader = new THREE.TextureLoader();
-    const texture = textureLoader.load("https://threejsfundamentals.org/threejs/resources/images/wall.jpg");
+    const texture = textureLoader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg');
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(4, 1);
 
-    const mobiusFunc = function (u, t, target) {
+    const mobiusFunc = (u, v, target) => {
       u *= Math.PI * 2;
-      t = (t - 0.5) * 8; // Even Thicker
-      const R = 88.2; // Increased to 1.2x of current size
-      const x = Math.cos(u) * (R + t * Math.cos(u / 2));
-      const y = Math.sin(u) * (R + t * Math.cos(u / 2));
-      const z = t * Math.sin(u / 2);
+      v = (v - 0.5) * 8;
+      const R = 88.2;
+      const x = Math.cos(u) * (R + v * Math.cos(u / 2));
+      const y = Math.sin(u) * (R + v * Math.cos(u / 2));
+      const z = v * Math.sin(u / 2);
       target.set(x, y, z);
     };
 
-    const geometry = new THREE.ParametricGeometry(mobiusFunc, 400, 100);
-    const material = new THREE.MeshStandardMaterial({ map: texture, metalness: 0.8, roughness: 0.05, emissive: 0x111111, side: THREE.DoubleSide });
+    function buildParametricGeometry(func, slices, stacks) {
+      const positions = [];
+      const uvs = [];
+      const indices = [];
+      const target = new THREE.Vector3();
+      for (let i = 0; i <= slices; i++) {
+        const u = i / slices;
+        for (let j = 0; j <= stacks; j++) {
+          const v = j / stacks;
+          func(u, v, target);
+          positions.push(target.x, target.y, target.z);
+          uvs.push(u, v);
+        }
+      }
+      const stride = stacks + 1;
+      for (let i = 0; i < slices; i++) {
+        for (let j = 0; j < stacks; j++) {
+          const a = i * stride + j;
+          const b = a + stride;
+          const c = a + 1;
+          const d = b + 1;
+          indices.push(a, b, c, b, d, c);
+        }
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setIndex(indices);
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geo.computeVertexNormals();
+      return geo;
+    }
+
+    const geometry = buildParametricGeometry(mobiusFunc, 200, 40);
+    const material = new THREE.MeshStandardMaterial({
+      map: texture,
+      metalness: 0.8,
+      roughness: 0.06,
+      emissive: 0x111111,
+      side: THREE.DoubleSide
+    });
     const mobius = new THREE.Mesh(geometry, material);
     scene.add(mobius);
 
-    const pointLight1 = new THREE.PointLight(0xff0088, 1.5);
-    pointLight1.position.set(50, 25, 25);
-    scene.add(pointLight1);
-
-    const pointLight2 = new THREE.PointLight(0x00ffff, 1);
-    pointLight2.position.set(-40, -40, 40);
-    scene.add(pointLight2);
-
-    const ambientLight = new THREE.AmbientLight(0x333333);
-    scene.add(ambientLight);
+    const lightA = new THREE.PointLight(0xff5ea8, 1.6);
+    lightA.position.set(70, 30, 25);
+    scene.add(lightA);
+    const lightB = new THREE.PointLight(0x40d9ff, 1.3);
+    lightB.position.set(-60, -50, 50);
+    scene.add(lightB);
+    scene.add(new THREE.AmbientLight(0x44506f));
 
     const particles = new THREE.Group();
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 520; i++) {
       const geo = new THREE.SphereGeometry(0.2, 8, 8);
-      const mat = new THREE.MeshStandardMaterial({ color: 0x00ffcc });
+      const mat = new THREE.MeshStandardMaterial({ color: i % 3 === 0 ? 0x40d9ff : (i % 3 === 1 ? 0xffcf5f : 0x4cffb5) });
       const mesh = new THREE.Mesh(geo, mat);
-      mesh.position.set((Math.random() - 0.5) * 200, (Math.random() - 0.5) * 200, (Math.random() - 0.5) * 200);
+      mesh.position.set((Math.random() - 0.5) * 220, (Math.random() - 0.5) * 220, (Math.random() - 0.5) * 220);
       particles.add(mesh);
     }
     scene.add(particles);
+    camera.position.z = 135;
 
-    camera.position.z = 130;
-
-    function animate() {
-      requestAnimationFrame(animate);
+    function animateBg() {
+      requestAnimationFrame(animateBg);
       mobius.rotation.x += 0.003;
-      mobius.rotation.y += 0.007;
+      mobius.rotation.y += 0.006;
       particles.rotation.y += 0.001;
       renderer.render(scene, camera);
     }
-    animate();
+    animateBg();
 
-    window.addEventListener("resize", () => {
+    window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
+  </script>
+
+  <script>
+    // Career walker: drives a walking character through the entire page as the user scrolls.
+    const stageEls = Array.from(document.querySelectorAll('[data-stage]'));
+
+    const progressFill = document.getElementById('progressFill');
+    const progressWalker = document.getElementById('progressWalker');
+    const railFill = document.getElementById('railFill');
+    const railWalker = document.getElementById('railWalker');
+    const railEl = document.querySelector('.career-rail');
+    const hudFloat = document.getElementById('hudFloat');
+    const hudLevel = document.getElementById('hudLevel');
+    const hudContext = document.getElementById('hudContext');
+    const hudPct = document.getElementById('hudPct');
+
+    let markers = [];
+    let currentStageIndex = -1;
+
+    function buildMarkers() {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      markers = stageEls.map(el => ({
+        el,
+        top: el.offsetTop,
+        pct: docHeight > 0 ? Math.min(1, Math.max(0, el.offsetTop / docHeight)) : 0
+      }));
+
+      if (railEl) {
+        railEl.querySelectorAll('.rail-marker').forEach(m => m.remove());
+        markers.forEach(m => {
+          const dot = document.createElement('div');
+          dot.className = 'rail-marker';
+          dot.style.top = (m.pct * 100) + '%';
+          dot.style.setProperty('--marker-tone', m.el.dataset.tone || '#40d9ff');
+          railEl.appendChild(dot);
+        });
+      }
+    }
+
+    function setActiveStage(index) {
+      if (index === currentStageIndex || index < 0) return;
+      currentStageIndex = index;
+      const stage = stageEls[index];
+      const tone = stage.dataset.tone || '#40d9ff';
+
+      hudLevel.textContent = stage.dataset.stage || '';
+      hudContext.textContent = stage.dataset.context || '';
+      hudFloat.style.setProperty('--marker-tone', tone);
+      railWalker.style.color = tone;
+      railWalker.style.backgroundColor = tone;
+      progressWalker.style.color = tone;
+      progressWalker.style.backgroundColor = tone;
+
+      hudFloat.classList.add('pulse');
+      setTimeout(() => hudFloat.classList.remove('pulse'), 420);
+
+      const railMarkerEls = railEl ? railEl.querySelectorAll('.rail-marker') : [];
+      railMarkerEls.forEach((dot, i) => {
+        if (i <= index) dot.classList.add('passed');
+        else dot.classList.remove('passed');
+      });
+    }
+
+    function onScroll() {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const pct = docHeight > 0 ? Math.min(1, Math.max(0, scrollTop / docHeight)) : 0;
+
+      progressFill.style.width = (pct * 100) + '%';
+      progressWalker.style.left = (pct * 100) + '%';
+      railFill.style.height = (pct * 100) + '%';
+      railWalker.style.top = (pct * 100) + '%';
+      hudPct.textContent = Math.round(pct * 100) + '%';
+
+      const viewLine = scrollTop + window.innerHeight * 0.35;
+      let active = 0;
+      for (let i = 0; i < markers.length; i++) {
+        if (markers[i].top <= viewLine) active = i;
+      }
+      setActiveStage(active);
+    }
+
+    let ticking = false;
+    function requestTick() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => { onScroll(); ticking = false; });
+      }
+    }
+
+    window.addEventListener('scroll', requestTick, { passive: true });
+    window.addEventListener('resize', () => { buildMarkers(); requestTick(); });
+    window.addEventListener('load', () => { buildMarkers(); requestTick(); });
+
+    buildMarkers();
+    requestTick();
   </script>
 </body>
 </html>
