@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sandesh Lekhwani | Product Journey</title>
   <meta name="description" content="Sandesh Lekhwani, product manager with a technical foundation, user behavior lens, and business acumen." />
+  <link rel="icon" type="image/gif" href="ironman-sandesh.gif" />
+  <link rel="apple-touch-icon" href="ironman-mask-frame.png" />
   <style>
     :root {
       --bg: #050816;
@@ -243,14 +245,52 @@
       position: relative;
     }
 
-    .avatar-helmet {
+    .avatar-mask-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #090d16;
+      border: 6px solid rgba(6, 10, 20, 0.95);
+    }
+
+    .avatar-layer {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 50%;
       display: block;
-      background: #090d16;
-      border: 6px solid rgba(6, 10, 20, 0.95);
+    }
+
+    .avatar-face { z-index: 1; }
+
+    .avatar-mask {
+      z-index: 2;
+      clip-path: inset(100% 0 0 0);
+      filter: drop-shadow(0 0 10px rgba(64, 217, 255, 0.35));
+      animation: mask-cycle 7s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+    }
+
+    .avatar-mask-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      box-shadow: inset 0 0 24px rgba(0,0,0,0.55);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    @keyframes mask-cycle {
+      0%, 10%   { clip-path: inset(100% 0 0 0); }
+      32%, 58%  { clip-path: inset(0% 0 0 0); }
+      80%, 100% { clip-path: inset(100% 0 0 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .avatar-mask { animation: none; clip-path: inset(0% 0 0 0); }
     }
 
     .section {
@@ -320,17 +360,6 @@
       overflow: hidden;
     }
 
-    .principle:before {
-      content: "";
-      position: absolute;
-      inset: auto -20px -40px auto;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: rgba(64, 217, 255, 0.12);
-      filter: blur(12px);
-    }
-
     .principle h3 {
       color: #fff;
       margin-bottom: 10px;
@@ -342,61 +371,121 @@
       font-size: 0.95rem;
     }
 
+    /* Career journey: big alternating case-study rows, one per role */
     .trail {
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
       margin-top: 10px;
-      padding-left: 58px;
-    }
-
-    .trail-line {
-      position: absolute;
-      left: 21px;
-      top: 6px;
-      bottom: 6px;
-      width: 4px;
-      background: linear-gradient(180deg, rgba(64,217,255,0.95), rgba(255,95,168,0.88), rgba(255,207,95,0.85), rgba(76,255,181,0.92));
-      border-radius: 999px;
-      box-shadow: 0 0 24px rgba(64, 217, 255, 0.25);
     }
 
     .trail-step {
       position: relative;
-      margin-bottom: 20px;
-    }
-
-    .trail-step:last-child { margin-bottom: 0; }
-
-    .trail-step .node {
-      position: absolute;
-      left: -58px;
-      top: 18px;
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: #0c1227;
-      border: 3px solid rgba(255,255,255,0.15);
-      display: grid;
-      place-items: center;
-      box-shadow: 0 0 0 6px rgba(255,255,255,0.03), 0 0 18px rgba(0,0,0,0.4);
-      z-index: 1;
+      display: flex;
+      align-items: stretch;
+      min-height: 300px;
+      border-radius: 28px;
       overflow: hidden;
-    }
-
-    .trail-step .node img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .trail-card {
-      padding: 20px;
-      border-radius: 24px;
       background: var(--card);
       border: 1px solid rgba(255,255,255,0.08);
       box-shadow: 0 18px 44px rgba(0,0,0,0.18);
+      color: inherit;
+      text-decoration: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     }
 
-    .trail-card .meta {
+    a.trail-step:hover {
+      transform: translateY(-5px);
+      border-color: color-mix(in srgb, var(--tone, var(--cyan)) 55%, rgba(255,255,255,0.08));
+      box-shadow: 0 24px 56px rgba(0,0,0,0.3), 0 0 30px -10px var(--tone, var(--cyan));
+    }
+
+    .trail-step.trail-right { flex-direction: row-reverse; }
+
+    .trail-visual {
+      position: relative;
+      flex: 0 0 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 30% 22%, color-mix(in srgb, var(--tone, var(--cyan)) 22%, transparent), transparent 60%),
+        linear-gradient(160deg, #131a34, #090d1c);
+    }
+
+    .trail-visual::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      pointer-events: none;
+      z-index: 3;
+      background-image:
+        linear-gradient(to right, var(--tone, var(--cyan)) 0 22px, transparent 0),
+        linear-gradient(to bottom, var(--tone, var(--cyan)) 0 22px, transparent 0),
+        linear-gradient(to left, var(--tone, var(--cyan)) 0 22px, transparent 0),
+        linear-gradient(to bottom, var(--tone, var(--cyan)) 0 22px, transparent 0),
+        linear-gradient(to right, var(--tone, var(--cyan)) 0 22px, transparent 0),
+        linear-gradient(to top, var(--tone, var(--cyan)) 0 22px, transparent 0),
+        linear-gradient(to left, var(--tone, var(--cyan)) 0 22px, transparent 0),
+        linear-gradient(to top, var(--tone, var(--cyan)) 0 22px, transparent 0);
+      background-repeat: no-repeat;
+      background-size: 26px 2px, 2px 26px, 26px 2px, 2px 26px, 26px 2px, 2px 26px, 26px 2px, 2px 26px;
+      background-position: top left, top left, top right, top right, bottom left, bottom left, bottom right, bottom right;
+      opacity: 0.6;
+      filter: drop-shadow(0 0 5px var(--tone, var(--cyan)));
+      transition: opacity 0.25s ease;
+    }
+
+    a.trail-step:hover .trail-visual::before { opacity: 1; }
+
+    .trail-level {
+      position: absolute;
+      right: 16px;
+      bottom: -6px;
+      font-family: "Courier New", ui-monospace, monospace;
+      font-weight: 800;
+      font-size: 6.5rem;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--tone, var(--cyan));
+      opacity: 0.3;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .trail-visual .brand-plate {
+      position: relative;
+      z-index: 2;
+      width: 74%;
+      max-width: 260px;
+      padding: 22px 26px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #f6f8fc, #d7deec);
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 0 0 2px var(--tone, var(--cyan)) inset, 0 16px 34px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .trail-visual .brand-plate img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 74px;
+      object-fit: contain;
+    }
+
+    .trail-body {
+      flex: 1 1 auto;
+      padding: 32px 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .trail-body .meta {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -418,19 +507,28 @@
       font-weight: 700;
     }
 
-    .trail-card h3 {
-      margin-bottom: 10px;
-      font-size: 1.18rem;
+    .trail-body h3 {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 1.32rem;
     }
 
-    .trail-card ul {
+    .trail-body ul {
       margin: 0;
       padding-left: 18px;
       color: #d7def6;
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
-    .trail-card ul li { margin-bottom: 6px; }
+    .trail-body ul li { margin-bottom: 6px; }
+
+    @media (max-width: 900px) {
+      .trail-step, .trail-step.trail-right { flex-direction: column; min-height: 0; }
+      .trail-visual { flex: 0 0 auto; min-height: 200px; padding: 24px; }
+      .trail-level { font-size: 4.5rem; }
+      .trail-body { padding: 26px; }
+    }
 
     .skill-rack {
       display: grid;
@@ -463,6 +561,99 @@
       font-weight: 700;
     }
 
+    /* Iron Man HUD tile treatment: targeting-reticle corners + scanlines + reactor glow */
+    .hud-tile {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .hud-tile::before {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      pointer-events: none;
+      z-index: 2;
+      background-image:
+        linear-gradient(to right, var(--tone, var(--cyan)) 0 16px, transparent 0),
+        linear-gradient(to bottom, var(--tone, var(--cyan)) 0 16px, transparent 0),
+        linear-gradient(to left, var(--tone, var(--cyan)) 0 16px, transparent 0),
+        linear-gradient(to bottom, var(--tone, var(--cyan)) 0 16px, transparent 0),
+        linear-gradient(to right, var(--tone, var(--cyan)) 0 16px, transparent 0),
+        linear-gradient(to top, var(--tone, var(--cyan)) 0 16px, transparent 0),
+        linear-gradient(to left, var(--tone, var(--cyan)) 0 16px, transparent 0),
+        linear-gradient(to top, var(--tone, var(--cyan)) 0 16px, transparent 0);
+      background-repeat: no-repeat;
+      background-size: 20px 2px, 2px 20px, 20px 2px, 2px 20px, 20px 2px, 2px 20px, 20px 2px, 2px 20px;
+      background-position: top left, top left, top right, top right, bottom left, bottom left, bottom right, bottom right;
+      opacity: 0.5;
+      filter: drop-shadow(0 0 4px var(--tone, var(--cyan)));
+      transition: opacity 0.25s ease;
+    }
+
+    .hud-tile::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background: repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 3px);
+      mix-blend-mode: overlay;
+      opacity: 0.6;
+    }
+
+    .hud-tile:hover {
+      transform: translateY(-4px);
+      border-color: color-mix(in srgb, var(--tone, var(--cyan)) 55%, rgba(255,255,255,0.08));
+      box-shadow: 0 18px 44px rgba(0,0,0,0.35), 0 0 0 1px color-mix(in srgb, var(--tone, var(--cyan)) 45%, transparent), 0 0 26px -6px var(--tone, var(--cyan));
+    }
+
+    .hud-tile:hover::before { opacity: 1; }
+
+    .hud-tile h3 {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: "Courier New", ui-monospace, monospace;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      font-size: 0.98rem;
+    }
+
+    .hud-tile p, .hud-tile .skill-tags {
+      position: relative;
+      z-index: 3;
+    }
+
+    .hud-tile img { position: relative; z-index: 1; }
+
+    .visit-arrow {
+      margin-left: auto;
+      color: var(--tone, var(--cyan));
+      font-size: 0.95rem;
+      opacity: 0.75;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    a.hud-tile:hover .visit-arrow,
+    a.trail-card:hover .visit-arrow {
+      transform: translate(2px, -2px);
+      opacity: 1;
+    }
+
+    .skill-card.hud-tile, .principle.hud-tile { --tone: var(--cyan); }
+    .project-card.hud-tile { --tone: var(--pink); }
+    .interest-card.hud-tile { --tone: var(--green); }
+
+    .skill-tag {
+      font-family: "Courier New", ui-monospace, monospace;
+      text-transform: uppercase;
+      border-radius: 6px;
+    }
+
     .project-grid, .interest-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -470,28 +661,69 @@
     }
 
     .project-card, .interest-card {
+      display: block;
       padding: 18px;
       border-radius: 22px;
       background: rgba(255,255,255,0.045);
       border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .project-card img, .interest-card img {
-      width: 100%;
-      height: 182px;
-      object-fit: cover;
-      border-radius: 16px;
-      margin-bottom: 12px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: #0a0f1e;
+      color: inherit;
+      text-decoration: none;
     }
 
     .project-card p, .interest-card p { color: var(--muted); line-height: 1.7; }
 
-    .interest-card img {
+    /* Logo frame: dark tech panel with a plate-mounted, uncropped brand mark */
+    .logo-frame {
+      position: relative;
+      height: 182px;
+      border-radius: 16px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.05), transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(64,217,255,0.08), transparent 65%),
+        linear-gradient(160deg, #131a34, #090d1c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .logo-frame img {
+      max-width: 72%;
+      max-height: 62%;
       object-fit: contain;
-      padding: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.05));
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,0.5));
+    }
+
+    /* Photo frame: real photography given a repulsor-gold/red duotone tint to match the suit */
+    .photo-frame {
+      position: relative;
+      height: 182px;
+      border-radius: 16px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(1.05) contrast(1.08);
+    }
+
+    .photo-frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background:
+        linear-gradient(180deg, rgba(255, 90, 40, 0.12), rgba(6, 9, 20, 0.62)),
+        radial-gradient(circle at 78% 12%, rgba(255, 207, 95, 0.3), transparent 55%);
+      mix-blend-mode: multiply;
+      pointer-events: none;
     }
 
     .footer {
@@ -611,6 +843,48 @@
       box-shadow: 0 0 10px currentColor;
     }
 
+    .social-bar {
+      position: fixed;
+      top: 18px;
+      right: 22px;
+      z-index: 43;
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(10, 15, 32, 0.82);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--cyan);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+    }
+
+    .social-icon svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .social-icon:hover {
+      transform: translateY(-2px);
+      color: #fff;
+      box-shadow: 0 0 18px var(--cyan), 0 12px 30px rgba(0,0,0,0.4);
+    }
+
+    @media (max-width: 700px) {
+      .social-bar { top: 10px; right: 12px; }
+      .social-icon { width: 34px; height: 34px; }
+      .social-icon svg { width: 15px; height: 15px; }
+    }
+
     .hud-float {
       position: fixed;
       left: 50%;
@@ -645,16 +919,6 @@
       flex-shrink: 0;
     }
 
-    .hud-context {
-      color: var(--muted);
-      font-size: 0.82rem;
-      white-space: nowrap;
-      max-width: min(240px, 40vw);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      min-width: 0;
-    }
-
     .hud-pct {
       color: var(--cyan);
       font-weight: 800;
@@ -665,7 +929,6 @@
     @media (max-width: 900px) {
       .career-rail { display: none; }
       .hud-float { max-width: calc(100% - 24px); }
-      .hud-context { display: none; }
     }
 
     @media (max-width: 1100px) {
@@ -683,8 +946,6 @@
       .hero-meta { grid-template-columns: 1fr; }
       .project-grid, .interest-grid { grid-template-columns: 1fr; }
       .footer { padding: 14px 0 0; }
-      .trail { padding-left: 48px; }
-      .trail-step .node { left: -48px; width: 40px; height: 40px; }
     }
   </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RZJQELWJ9"></script>
@@ -704,6 +965,15 @@
     <span class="progress-walker" id="progressWalker"></span>
   </div>
 
+  <div class="social-bar" aria-label="Social links">
+    <a class="social-icon" href="https://www.linkedin.com/in/sandesh-lekhwani" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.94 8.5H3.56V20h3.38V8.5zM5.25 3.5a1.96 1.96 0 1 0 0 3.92 1.96 1.96 0 0 0 0-3.92zM20.44 20h-3.37v-5.9c0-1.41-.03-3.22-1.96-3.22-1.97 0-2.27 1.54-2.27 3.12V20h-3.37V8.5h3.24v1.57h.05c.45-.86 1.56-1.77 3.21-1.77 3.43 0 4.06 2.26 4.06 5.2V20z"/></svg>
+    </a>
+    <a class="social-icon" href="mailto:sandeshlekhwani@gmail.com" aria-label="Email">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4h15A1.5 1.5 0 0 1 21 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5v-13zm2.1.5 6.9 5.32L18.9 6H5.1zM19.5 8.1l-6.83 5.26a1.5 1.5 0 0 1-1.84 0L4 8.1v10.4h15.5V8.1z"/></svg>
+    </a>
+  </div>
+
   <div class="career-rail" aria-hidden="true">
     <div class="rail-track"><div class="rail-fill" id="railFill"></div></div>
     <div class="rail-walker" id="railWalker"></div>
@@ -711,14 +981,16 @@
 
   <div class="hud-float" id="hudFloat">
     <span class="hud-level" id="hudLevel">Prologue</span>
-    <span class="hud-context" id="hudContext">Scroll to start the walk</span>
     <span class="hud-pct" id="hudPct">0%</span>
   </div>
 
   <div class="top-face">
     <div class="face-frame">
       <div class="avatar">
-        <img class="avatar-helmet" src="ironman-sandesh.gif" alt="Sandesh Lekhwani as Iron Man" onerror="this.onerror=null; this.src='https://cdnb.artstation.com/p/assets/images/images/038/792/913/original/talha-ironmangif.gif?1624063741';" />
+        <div class="avatar-mask-wrap">
+          <img class="avatar-layer avatar-face" src="sandesh-face-frame.png" alt="Sandesh Lekhwani" />
+          <img class="avatar-layer avatar-mask" src="ironman-mask-frame.png" alt="Iron Man mask closing over Sandesh Lekhwani" />
+        </div>
       </div>
     </div>
   </div>
@@ -770,15 +1042,15 @@
           <p>I start with the user’s real job, map the friction, and ask what behavior needs to change. Then I look at the system: what’s the engineering cost, what’s the commercial upside, and what should be measured? A good product manager can frame the problem, but a great one can also ship the thing.</p>
         </div>
         <div class="principles">
-          <div class="principle">
+          <div class="principle hud-tile">
             <h3>Technical spine</h3>
             <p>I can still read architecture, prototype fast, and work comfortably with engineers and data.</p>
           </div>
-          <div class="principle">
+          <div class="principle hud-tile">
             <h3>User lens</h3>
             <p>I care about trust, motivation, ease, and the subtle habits that make people stay or leave.</p>
           </div>
-          <div class="principle">
+          <div class="principle hud-tile">
             <h3>Business brain</h3>
             <p>I connect product choices to revenue, margin, retention, CAC, conversion, and strategic leverage.</p>
           </div>
@@ -786,72 +1058,85 @@
       </div>
 
       <div class="trail">
-        <div class="trail-line"></div>
-
-        <article class="trail-step" data-stage="Engineer" data-tone="#40d9ff" data-context="FinIQ · close to the code, close to how systems behave.">
-          <div class="node"><img src="https://logo.clearbit.com/finiq.com?size=120" alt="FinIQ" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=F&amp;background=0a0f1e&amp;color=40d9ff&amp;size=120';" /></div>
-          <div class="trail-card">
+        <a class="trail-step trail-left" href="https://finiq.com" target="_blank" rel="noreferrer" data-stage="Engineer" data-tone="#40d9ff" data-context="FinIQ · close to the code, close to how systems behave." style="--tone:#40d9ff">
+          <div class="trail-visual">
+            <div class="brand-plate"><img src="logo-finiq.png" alt="FinIQ logo" /></div>
+            <span class="trail-level">01</span>
+          </div>
+          <div class="trail-body">
             <div class="meta"><span class="pill">Level 01</span><span>FinIQ · 2019–2020</span><span>Engineer</span></div>
-            <h3>Built the foundation</h3>
+            <h3>Built the foundation <span class="visit-arrow" aria-hidden="true">↗</span></h3>
             <ul>
               <li>Developed an Ethereum-based PoC for derivatives workflows.</li>
               <li>Migrated ASP.NET legacy systems to .NET Core, improving performance by 20%.</li>
               <li>Learned to think in systems, latency, and reliable execution.</li>
             </ul>
           </div>
-        </article>
+        </a>
 
-        <article class="trail-step" data-stage="Product Manager" data-tone="#ffcf5f" data-context="Mindstix · translating user friction into shipped decisions.">
-          <div class="node"><img src="https://logo.clearbit.com/mindstix.com?size=120" alt="Mindstix" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=M&amp;background=0a0f1e&amp;color=ffcf5f&amp;size=120';" /></div>
-          <div class="trail-card">
+        <a class="trail-step trail-right" href="https://mindstix.com" target="_blank" rel="noreferrer" data-stage="Product Manager" data-tone="#ffcf5f" data-context="Mindstix · translating user friction into shipped decisions." style="--tone:#ffcf5f">
+          <div class="trail-visual">
+            <div class="brand-plate"><img src="logo-mindstix.png" alt="Mindstix logo" /></div>
+            <span class="trail-level">02</span>
+          </div>
+          <div class="trail-body">
             <div class="meta"><span class="pill">Level 02</span><span>Mindstix · 2020–2021</span><span>Product Manager</span></div>
-            <h3>Started shaping behavior</h3>
+            <h3>Started shaping behavior <span class="visit-arrow" aria-hidden="true">↗</span></h3>
             <ul>
               <li>Shipped 15+ features across 4 releases and lifted engagement 50%.</li>
               <li>Worked on prioritization, user outcomes, and delivery discipline.</li>
               <li>Transitioned from building features to deciding what matters and why.</li>
             </ul>
           </div>
-        </article>
+        </a>
 
-        <article class="trail-step" data-stage="Co-founder" data-tone="#4cffb5" data-context="SingleDose → Cipla · owning the market outcome, not just the build.">
-          <div class="node"><img src="https://logo.clearbit.com/cipla.com?size=120" alt="Cipla" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=C&amp;background=0a0f1e&amp;color=4cffb5&amp;size=120';" /></div>
-          <div class="trail-card">
+        <a class="trail-step trail-left" href="https://ciplamedflix.com" target="_blank" rel="noreferrer" data-stage="Co-founder" data-tone="#4cffb5" data-context="SingleDose → Cipla · owning the market outcome, not just the build." style="--tone:#4cffb5">
+          <div class="trail-visual">
+            <div class="brand-plate"><img src="logo-cipla.png" alt="Ciplamed Flix logo" /></div>
+            <span class="trail-level">03</span>
+          </div>
+          <div class="trail-body">
             <div class="meta"><span class="pill">Level 03</span><span>SingleDose → Cipla · 2021–2022</span><span>Co-founder</span></div>
-            <h3>Owned the market outcome</h3>
+            <h3>Owned the market outcome <span class="visit-arrow" aria-hidden="true">↗</span></h3>
             <ul>
               <li>Scaled a global HCP network to 10,000+ doctors.</li>
               <li>Built and launched Ciplamed Flix; recognized with the ET Pharma Award 2022.</li>
               <li>Learned what it means to build with urgency, market need, and commercial consequences.</li>
             </ul>
           </div>
-        </article>
+        </a>
 
-        <article class="trail-step" data-stage="Senior PM" data-tone="#b967ff" data-context="GoKwik · balancing user behavior and business leverage at scale.">
-          <div class="node"><img src="https://logo.clearbit.com/gokwik.co?size=120" alt="GoKwik" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=G&amp;background=0a0f1e&amp;color=b967ff&amp;size=120';" /></div>
-          <div class="trail-card">
+        <a class="trail-step trail-right" href="https://www.gokwik.co/product/kwikcheckout" target="_blank" rel="noreferrer" data-stage="Senior PM" data-tone="#b967ff" data-context="GoKwik · balancing user behavior and business leverage at scale." style="--tone:#b967ff">
+          <div class="trail-visual">
+            <div class="brand-plate"><img src="logo-gokwik.png" alt="GoKwik logo" /></div>
+            <span class="trail-level">04</span>
+          </div>
+          <div class="trail-body">
             <div class="meta"><span class="pill">Level 04</span><span>GoKwik · 2022–2025</span><span>Senior Product Manager</span></div>
-            <h3>Scaled revenue with product judgment</h3>
+            <h3>Scaled revenue with product judgment <span class="visit-arrow" aria-hidden="true">↗</span></h3>
             <ul>
               <li>Grew smartCOD / RTO from $2M to $10M+ ARR and $1B+ GMV.</li>
               <li>Cut RTO by 40% using ML scoring and behavioral friction signals.</li>
               <li>Launched kwik.AI and RTO Actions, helping 1,000+ merchants.</li>
             </ul>
           </div>
-        </article>
+        </a>
 
-        <article class="trail-step" data-stage="Product Leader" data-tone="#ff8f49" data-context="JoVE · driving growth while keeping user and business in sync.">
-          <div class="node"><img src="https://logo.clearbit.com/jove.com?size=120" alt="JoVE" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=J&amp;background=0a0f1e&amp;color=ff8f49&amp;size=120';" /></div>
-          <div class="trail-card">
+        <a class="trail-step trail-left" href="https://visualize.jove.com/" target="_blank" rel="noreferrer" data-stage="Product Leader" data-tone="#ff8f49" data-context="JoVE · driving growth while keeping user and business in sync." style="--tone:#ff8f49">
+          <div class="trail-visual">
+            <div class="brand-plate"><img src="logo-jove.png" alt="JoVE logo" /></div>
+            <span class="trail-level">05</span>
+          </div>
+          <div class="trail-body">
             <div class="meta"><span class="pill">Level 05</span><span>JoVE · 2025–Present</span><span>Senior Product Manager</span></div>
-            <h3>Leading with product + growth</h3>
+            <h3>Leading with product + growth <span class="visit-arrow" aria-hidden="true">↗</span></h3>
             <ul>
               <li>Shipped Visualize plus 3 internal platforms in 6 months.</li>
               <li>Raised indexation ~20%, improved engagement ~60%, reduced CAC 23%.</li>
               <li>Built tools for board visibility, research CRM, and citation tracking.</li>
             </ul>
           </div>
-        </article>
+        </a>
       </div>
     </section>
 
@@ -863,7 +1148,7 @@
         </div>
       </div>
       <div class="skill-rack">
-        <div class="skill-card">
+        <div class="skill-card hud-tile">
           <h3>Product craft</h3>
           <div class="skill-tags">
             <span class="skill-tag">0→1 / 1→100</span>
@@ -873,7 +1158,7 @@
             <span class="skill-tag">Pricing</span>
           </div>
         </div>
-        <div class="skill-card">
+        <div class="skill-card hud-tile">
           <h3>User behavior</h3>
           <div class="skill-tags">
             <span class="skill-tag">JTBD</span>
@@ -883,7 +1168,7 @@
             <span class="skill-tag">Retention</span>
           </div>
         </div>
-        <div class="skill-card">
+        <div class="skill-card hud-tile">
           <h3>Business acumen</h3>
           <div class="skill-tags">
             <span class="skill-tag">P&amp;L</span>
@@ -893,7 +1178,7 @@
             <span class="skill-tag">NPS</span>
           </div>
         </div>
-        <div class="skill-card">
+        <div class="skill-card hud-tile">
           <h3>Technical depth</h3>
           <div class="skill-tags">
             <span class="skill-tag">Architecture</span>
@@ -914,16 +1199,16 @@
         </div>
       </div>
       <div class="project-grid">
-        <article class="project-card">
-          <img src="https://images.unsplash.com/photo-1553484771-5d8d1d0d7d57?auto=format&fit=crop&w=1200&q=80" alt="AI product dashboard" />
-          <h3>GreenTick AI</h3>
+        <a class="project-card hud-tile" href="https://greentick.org.in" target="_blank" rel="noreferrer">
+          <div class="logo-frame"><img src="project-greentick.png" alt="GreenTick AI logo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1553484771-5d8d1d0d7d57?auto=format&fit=crop&w=1200&q=80';" /></div>
+          <h3>GreenTick AI <span class="visit-arrow" aria-hidden="true">↗</span></h3>
           <p>AI voice-based interview assessment backed by Google for Startups and NVIDIA Inception. Provisional patent, paid pilots, and a product shaped around assessment behavior.</p>
-        </article>
-        <article class="project-card">
-          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80" alt="Product and strategy workshop" />
-          <h3>Widur.in</h3>
+        </a>
+        <a class="project-card hud-tile" href="https://www.instagram.com/widur.in/" target="_blank" rel="noreferrer">
+          <div class="logo-frame"><img src="project-widur.png" alt="Widur.in logo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80';" /></div>
+          <h3>Widur.in <span class="visit-arrow" aria-hidden="true">↗</span></h3>
           <p>AI expert consultation platform scaled to 20,000+ users and 10 B2B clients, driven by trust, access, and conversion-oriented product design.</p>
-        </article>
+        </a>
       </div>
     </section>
 
@@ -935,23 +1220,23 @@
         </div>
       </div>
       <div class="interest-grid">
-        <article class="interest-card">
-          <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/269b.svg" alt="Quantum" />
+        <article class="interest-card hud-tile">
+          <div class="photo-frame"><img src="icon-quantum.png" alt="Quantum computing" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Q&amp;background=0a0f1e&amp;color=4cffb5&amp;size=160&amp;bold=true';" /></div>
           <h3>Quantum computing</h3>
           <p>NVIDIA Ising models for QPU calibration and QRNG for resilient crypto.</p>
         </article>
-        <article class="interest-card">
-          <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f9e0.svg" alt="Psychology" />
+        <article class="interest-card hud-tile">
+          <div class="photo-frame"><img src="icon-psychology.png" alt="Behavioral psychology" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=P&amp;background=0a0f1e&amp;color=4cffb5&amp;size=160&amp;bold=true';" /></div>
           <h3>Behavioral psychology</h3>
           <p>Interested in the productivity illusion, attention, and how people make decisions under uncertainty.</p>
         </article>
-        <article class="interest-card">
-          <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f9d8.svg" alt="Vipassana" />
+        <article class="interest-card hud-tile">
+          <div class="photo-frame"><img src="icon-vipassana.png" alt="Vipassana" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=V&amp;background=0a0f1e&amp;color=4cffb5&amp;size=160&amp;bold=true';" /></div>
           <h3>Vipassana</h3>
           <p>10-day self-observation practice that strengthened focus and emotional clarity.</p>
         </article>
-        <article class="interest-card">
-          <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/26f0.svg" alt="Trekking" />
+        <article class="interest-card hud-tile">
+          <div class="photo-frame"><img src="icon-trekking.png" alt="Trekking" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=T&amp;background=0a0f1e&amp;color=4cffb5&amp;size=160&amp;bold=true';" /></div>
           <h3>Trekking</h3>
           <p>Kedarkantha and other climbs, a reminder that hard journeys are easier when broken into milestones.</p>
         </article>
@@ -1081,7 +1366,6 @@
     const railEl = document.querySelector('.career-rail');
     const hudFloat = document.getElementById('hudFloat');
     const hudLevel = document.getElementById('hudLevel');
-    const hudContext = document.getElementById('hudContext');
     const hudPct = document.getElementById('hudPct');
 
     let markers = [];
@@ -1114,7 +1398,6 @@
       const tone = stage.dataset.tone || '#40d9ff';
 
       hudLevel.textContent = stage.dataset.stage || '';
-      hudContext.textContent = stage.dataset.context || '';
       hudFloat.style.setProperty('--marker-tone', tone);
       railWalker.style.color = tone;
       railWalker.style.backgroundColor = tone;
